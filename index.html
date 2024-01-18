@@ -14,7 +14,7 @@
 <body>
     <div id="app">
         <h1 class="app-title">
-            <img src="./images/school-icon.svg" alt="School Icon" class="school-icon"> After School App
+            <img src="http://localhost:3001/images/school-icon.svg" alt="School Icon" class="school-icon"> After School App
         </h1>
         <div class="main-container">
             <!-- Sorting section on the left -->
@@ -115,6 +115,7 @@
                     { id: "sortPrice", value: "price", label: "Price" },
                     { id: "sortSpaces", value: "spaces", label: "Availability" },
                 ],
+                api: "http://localhost:3001/api",
                 cartItems: [],
                 name: "",
                 phone: "",
@@ -153,7 +154,7 @@
                 // Fetch classes from the API
                 async fetchClasses() {
                     try {
-                        const response = await fetch("http://localhost:3001/api/classes");
+                        const response = await fetch(this.api + `/classes`);
                         const data = await response.json();
                         console.log("Fetched data:", data);
                         this.lessons = data;
@@ -163,7 +164,7 @@
                 },
                 async searchClasses() {
                     try {
-                        const response = await fetch(`http://localhost:3001/api/search?searchFor=${this.searchTerm}`);
+                        const response = await fetch(this.api + `/search?searchFor=${this.searchTerm}`);
                         const searchData = await response.json();
 
                         // Check if items are already in the cart
@@ -182,18 +183,18 @@
                 // Get lesson image based on title
                 getLessonImage(title) {
                     const imgMap = {
-                        Maths: "images/math-icon.svg",
-                        History: "images/history-icon.svg",
-                        Science: "images/science-icon.svg",
-                        Art: "images/art-icon.svg",
-                        Music: "images/music-icon.svg",
-                        Programming: "images/programming-icon.svg",
-                        English: "images/english-icon.svg",
-                        PE: "images/PE-icon.svg",
-                        Chemistry: "images/chemistry-icon.svg",
-                        Geography: "images/geography-icon.svg",
+                        Maths: "math-icon.svg",
+                        History: "history-icon.svg",
+                        Science: "science-icon.svg",
+                        Art: "art-icon.svg",
+                        Music: "music-icon.svg",
+                        Programming: "programming-icon.svg",
+                        English: "english-icon.svg",
+                        PE: "PE-icon.svg",
+                        Chemistry: "chemistry-icon.svg",
+                        Geography: "geography-icon.svg",
                     };
-                    return imgMap[title] || "";
+                    return "http://localhost:3001/images/" + imgMap[title] || "";
                 },
                 // Checkout process
                 async checkout() {
@@ -212,7 +213,7 @@
                         console.log('Order Data:', orderData);
 
                         try {
-                            const response = await fetch("http://localhost:3001/api/orders", {
+                            const response = await fetch(this.api + "/orders", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify(orderData),
@@ -247,7 +248,7 @@
                         }
 
                         const orderId = await this.getLatestOrderId(); // Assuming there's a route to get the latest order ID
-                        const response = await fetch(`http://localhost:3001/api/orders/${orderId}`, {
+                        const response = await fetch(this.api + `/orders/${orderId}`, {
                             method: "PUT",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ cartItems }),
@@ -267,7 +268,7 @@
                 },
                 // Get the latest order ID
                 async getLatestOrderId() {
-                    const response = await fetch("http://localhost:3001/api/orders");
+                    const response = await fetch(this.api + "/orders");
                     const orders = await response.json();
                     return orders.length > 0 ? orders[orders.length - 1]._id : null;
                 },
