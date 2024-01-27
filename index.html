@@ -14,7 +14,8 @@
 <body>
     <div id="app">
         <h1 class="app-title">
-            <img src="http://localhost:3001/images/school-icon.svg" alt="School Icon" class="school-icon"> After School App
+            <img src="https://afterschoolapp-env.eba-suztb7mk.eu-west-2.elasticbeanstalk.com/images/school-icon.svg"
+                alt="School Icon" class="school-icon"> After School App
         </h1>
         <div class="main-container">
             <!-- Sorting section on the left -->
@@ -115,7 +116,7 @@
                     { id: "sortPrice", value: "price", label: "Price" },
                     { id: "sortSpaces", value: "spaces", label: "Availability" },
                 ],
-                api: "http://localhost:3001/api",
+                api: "https://afterschoolapp-env.eba-suztb7mk.eu-west-2.elasticbeanstalk.com",
                 cartItems: [],
                 name: "",
                 phone: "",
@@ -194,7 +195,7 @@
                         Chemistry: "chemistry-icon.svg",
                         Geography: "geography-icon.svg",
                     };
-                    return "http://localhost:3001/images/" + imgMap[title] || "";
+                    return "https://afterschoolapp-env.eba-suztb7mk.eu-west-2.elasticbeanstalk.com/images/" + imgMap[title] || "";
                 },
                 // Checkout process
                 async checkout() {
